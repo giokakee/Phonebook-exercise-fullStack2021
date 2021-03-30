@@ -1,0 +1,14 @@
+DELETE http://localhost:3001/phonebook/1
+
+###
+POST  http://localhost:3001/phonebook
+Content-Type: application/json
+
+
+{
+    "name": "kawwwk",
+    "number": 2222
+}
+
+###
+GET  http://localhost:3001/phonebook
