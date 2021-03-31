@@ -36,11 +36,11 @@ let phonebook = [
 app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
-app.get('/phonebook', (req,res) => {
+app.get('/api/phonebook', (req,res) => {
        
    res.json(phonebook)
 })
-app.get('/phonebook/:id', (req,res) => {
+app.get('/api/phonebook/:id', (req,res) => {
     let id = req.params.id
     let person = phonebook.find(person => person.id == id)
      if(person){
@@ -57,7 +57,7 @@ const generatedId = () => {
        : 0
     return maxId + 1
 }
-app.post('/phonebook', (req,res) => {
+app.post('/api/phonebook', (req,res) => {
     let body = req.body
     
     if(!body.name || !body.number){
@@ -77,7 +77,7 @@ app.post('/phonebook', (req,res) => {
        
 })
 
-app.delete('/phonebook/:id', (req, res) => {
+app.delete('/api/phonebook/:id', (req, res) => {
     let id = Number(req.params.id)
 
     phonebook = phonebook.filter(filt => filt.id!==id)
