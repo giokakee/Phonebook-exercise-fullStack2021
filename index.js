@@ -1,28 +1,33 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const PORT = process.env.PORT || 3001
-
-
+const axios = require('axios')
 app.use(express.json())
+app.use(cors())
 
 let phonebook = [
     {   
         id:1,
         name: "kakee",
-        number: 579009135,
+        number: 300499588,
         date: new Date()
     },
     {
         id:2,
         name: "second",
-        number: 579009135,
+        number: 300499588,
         date: new Date()
     },
     {
         id:3,
         name: "third",
-        number: 579009135,
+        number: 300499588,
+        date: new Date()
+    },
+    {
+        id:4,
+        name: "fourth",
+        number: 324324324,
         date: new Date()
     }
 ]
@@ -32,12 +37,17 @@ app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
 app.get('/phonebook', (req,res) => {
-    res.json(phonebook)
+       
+   res.json(phonebook)
 })
 app.get('/phonebook/:id', (req,res) => {
     let id = req.params.id
     let person = phonebook.find(person => person.id == id)
-    res.send(person)
+     if(person){
+        res.json(person)
+     }else{
+         res.status(404).end('this person does not exists')
+     }
 })
 
 //POST
@@ -85,6 +95,7 @@ const unknownEndpoint = (request, response) => {
   app.use(unknownEndpoint)
 
 
+  const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`App is running at ${PORT}`)
 })
