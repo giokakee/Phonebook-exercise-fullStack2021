@@ -19,7 +19,10 @@ app.get('/', (req,res) => {
 app.get('/api/phonebook', async (req,res) => {
     try{
         await Person.find({}).then(persons => {
-           res.json(persons)
+           return persons.toJSON()
+        })
+        .then(formated => {
+            res.json(formated)
         })
     }catch(err){
         res.send(err)
