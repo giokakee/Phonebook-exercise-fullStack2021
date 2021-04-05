@@ -16,13 +16,12 @@ app.use(express.static('build'))
 app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
-app.get('/api/phonebook', async (req,res) => {
- try{
-     const post = await Person.find({})
-     res.send(post)
- } catch(err){
-     res.send({message: err})
- }
+app.get('/api/phonebook',  (req,res) => {
+    Person.find({})
+        .then(persons => {
+            res.send(persons)
+        })
+        .catch(err => console.log(err))
 })
 app.get('/api/phonebook/:id', (req,res) => {
    res.send({id: req.params.id})
