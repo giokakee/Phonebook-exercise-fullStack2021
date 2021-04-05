@@ -19,13 +19,13 @@ app.get('/', (req,res) => {
 app.get('/api/phonebook', async (req,res) => {
  try{
      const post = await Person.find({})
-     res.json(post)
+     res.send(post)
  } catch(err){
-     res.json({message: err})
+     res.send({message: err})
  }
 })
 app.get('/api/phonebook/:id', (req,res) => {
-   res.json({id: req.params.id})
+   res.send({id: req.params.id})
 })
 
 //POST
@@ -42,9 +42,9 @@ app.post('/api/phonebook', async  (req,res) => {
             console.log('zimbabue')
             console.log(`person ${body.name} saved`)
             const post = await Person.find({})
-            res.json(post)
+            res.send(post)
         } catch(err){
-            res.json({message: err})
+            res.send({message: err})
         }    
 });
 
@@ -55,7 +55,7 @@ Person.findByIdAndRemove(id)
         Person.find({})
             .then(persons => {
                 console.log(`${removedPerson.name} removed`)
-                res.json(persons)
+                res.send(persons)
             }).catch(err => next(err))
     }).catch(err => {
         next(err)
