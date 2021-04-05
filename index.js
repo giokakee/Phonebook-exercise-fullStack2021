@@ -6,7 +6,6 @@ const Person = require('./models/mongo')
 const mongoose = require('mongoose')
 
 
-
 app.use(express.json())
 app.use(cors())
 app.use(express.static('build'))
@@ -16,17 +15,11 @@ app.use(express.static('build'))
 app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
-app.get('/api/phonebook', async (req,res) => {
-    try{
-        await Person.find({}).then(persons => {
-           return persons.toJSON()
-        })
-        .then(formated => {
-            res.json(formated)
-        })
-    }catch(err){
-        res.send(err)
-    }
+app.get('/api/phonebook',  (req,res) => {
+    Person.find({})
+    .then(persons => {
+        res.json(persons.map(person => person.toJSON()))
+    })
 })
 app.get('/api/phonebook/:id', (req,res) => {
    res.send({id: req.params.id})
@@ -37,18 +30,18 @@ app.get('/api/phonebook/:id', (req,res) => {
 app.post('/api/phonebook', async  (req,res) => {
       let body = req.body 
       try{
+          console.log('zimbabue')
           const person = await new Person ({
               name: body.name,
               number: body.number,
               date: new Date()
             }) 
             await  person.save()
-            console.log('zimbabue')
             console.log(`person ${body.name} saved`)
             const post = await Person.find({})
-            res.send(post)
+            res.send(post.map(persons => persons.toJSON()))
         } catch(err){
-            res.send({message: err})
+            console.log(err)
         }    
 });
 
