@@ -25,22 +25,11 @@ app.get('/api/phonebook', async (req,res) => {
  }
 })
 app.get('/api/phonebook/:id', (req,res) => {
-    // let id = req.params.id
-    // let person = phonebook.find(person => person.id == id)
-    //  if(person){
-    //     res.json(person)
-    //  }else{
-    //      res.status(404).end('this person does not exists')
-    //  }
+   res.json({id: req.params.id})
 })
 
 //POST
-// const generatedId = () => {
-//     let maxId = phonebook.length > 0
-//     ?Math.max(...phonebook.map(mp => mp.id)) 
-//        : 0
-//     return maxId + 1
-// }
+
 app.post('/api/phonebook', async  (req,res) => {
       let body = req.body 
       try{
