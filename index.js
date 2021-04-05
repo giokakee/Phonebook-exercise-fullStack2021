@@ -19,7 +19,7 @@ app.get('/', (req,res) => {
 app.get('/api/phonebook',  (req,res) => {
     Person.find({})
         .then(persons => {
-            res.send(persons)
+           res.json(persons)
         })
         .catch(err => console.log(err))
 })
