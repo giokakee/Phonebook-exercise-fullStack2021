@@ -6,9 +6,9 @@ const Person = require('./models/mongo')
 const mongoose = require('mongoose')
 
 
+app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
-app.use(express.static('build'))
 
 
 //GET
@@ -16,6 +16,7 @@ app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
 app.get('/api/phonebook',  (req,res) => {
+    console.log('we ar on api/phonebook get method')
     Person.find({})
     .then(persons => {
         res.json(persons.map(person => person.toJSON()))
