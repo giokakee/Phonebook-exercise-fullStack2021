@@ -31,8 +31,8 @@ app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
 app.get('/api/phonebook', async (req,res) => {
-    const persons = await Person.find({})
-   try{
+    try{
+        const persons = await Person.find({})
         res.json(persons)
    }catch(err){
          res.send(err)
