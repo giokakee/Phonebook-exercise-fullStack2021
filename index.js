@@ -30,14 +30,9 @@ let pp = [
 app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
-app.get('/api/phonebook', async (req,res) => {
-    try{
-        const persons = await Person.find({})
-    }catch(err){
-        res.send(err)
-    }
-
-    res.send(persons)
+app.get('/api/phonebook',  (req,res) => {
+   
+    Person.find({}).then( p => res.json(p))
 })
 app.get('/api/phonebook/:id', (req,res) => {
    res.send({id: req.params.id})
