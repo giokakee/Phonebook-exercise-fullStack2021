@@ -33,10 +33,11 @@ app.get('/', (req,res) => {
 app.get('/api/phonebook', async (req,res) => {
     try{
         const persons = await Person.find({})
-        res.json(persons)
-   }catch(err){
-         res.send(err)
-   }
+    }catch(err){
+        res.send(err)
+    }
+
+    res.send(persons)
 })
 app.get('/api/phonebook/:id', (req,res) => {
    res.send({id: req.params.id})
