@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const axios = require('axios')
 const Person = require('./models/mongo')
-const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 
 app.use(express.static('build'))
+app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())
 
