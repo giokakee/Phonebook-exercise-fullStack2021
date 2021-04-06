@@ -10,29 +10,20 @@ app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())
 
-let pp = [
-    {
-    name: "one",
-    number: "1",
-    date: "2021-04-05T19:53:40.992Z",
-    id: "606b6ac4f5b0eb25144329dd"
-    },
-    {
-    name: "sec",
-    number: "121234124sdsad",
-    date: "2021-04-05T19:53:48.222Z",
-    id: "606b6accf5b0eb25144329de"
-    }
-]
-
 
 //GET
 app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
-app.get('/api/phonebook',  (req,res) => {
+app.get('/api/phonebook', async (req,res) => {
    
-    Person.find({}).then( p => res.json(p))
+    try{
+        const persons = await Person.find({})
+        res.json(persons.map(mp => mp.toJSON()))
+    }catch(err){
+        res.status(404).end()
+    }
+   
 })
 app.get('/api/phonebook/:id', (req,res) => {
    res.send({id: req.params.id})
