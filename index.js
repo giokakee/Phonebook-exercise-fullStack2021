@@ -3,24 +3,26 @@ const app = express()
 const cors = require('cors')
 const Person = require('./models/mongo')
 const bodyParser = require('body-parser')
-
-
 app.use(express.static('build'))
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors())
 
 
+
+
 //GET
 app.get('/', (req,res) => {
     res.send('<h1>Hello world</h1>')
 })
+
 app.get('/api/phonebook', async (req,res) => {
-   
+    
     try{
         const persons = await Person.find({})
         res.json(persons.map(mp => mp.toJSON()))
     }catch(err){
+        console.log('this name already exists or ther problem')
         res.status(404).end()
     }
    
@@ -33,8 +35,8 @@ app.get('/api/phonebook/:id', (req,res) => {
 
 app.post('/api/phonebook', async  (req,res) => {
       let body = req.body 
+    console.log('zimbabuee')
       try{
-          console.log('zimbabue')
           const person = await new Person ({
               name: body.name,
               number: body.number,
@@ -45,7 +47,7 @@ app.post('/api/phonebook', async  (req,res) => {
             const post = await Person.find({})
             res.send(post.map(persons => persons.toJSON()))
         } catch(err){
-            console.log(err)
+            console.log([{message: err.message},{errorName: err.name}])
         }    
 });
 

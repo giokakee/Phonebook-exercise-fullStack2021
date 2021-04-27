@@ -5,7 +5,6 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 
 const URL = process.env.URL
-console.log(URL)
 mongoose.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
 
